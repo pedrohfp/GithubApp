@@ -31,13 +31,13 @@ class HomeActivity : AppCompatActivity() {
                 .get(RepoViewModel::class.java)
 
         repoViewModel.getRepositories().observe(this, Observer { resRepo: Resource<Repo>? ->
-            when(resRepo!!.status){
-                Status.SUCCESS -> name.text = resRepo.data!!.items[0].name
-                Status.ERROR -> name.text = resRepo.data!!.items[0].name
-                Status.LOADING -> name.text = resRepo.data!!.items[0].name
+            resRepo?.let {
+                when (resRepo.status) {
+                    Status.SUCCESS -> name.text = resRepo.data!!.items[0].name
+                    Status.ERROR -> name.text = resRepo.data!!.items[0].name
+                    Status.LOADING -> name.text = resRepo.data!!.items[0].name
+                }
             }
         })
-
-        repoViewModel.getRepositories()
     }
 }

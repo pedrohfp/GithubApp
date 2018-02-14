@@ -8,6 +8,7 @@ import br.com.githubapp.data.model.Resource
 import br.com.githubapp.data.model.Status
 import br.com.githubapp.data.repositories.repo.RepoRepository
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Before
@@ -36,7 +37,7 @@ class RepoViewModelTest {
     }
 
     @Test
-    fun testLoadRepositoriesSuccesful(){
+    fun whenRepositoryReturned_verifyLiveDataObserverIsCalled(){
         val repo: Repo = mock()
 
         val repoLiveData: MutableLiveData<Resource<Repo>> = MutableLiveData()
@@ -46,6 +47,6 @@ class RepoViewModelTest {
         repoViewModel.getRepositories().observeForever(observer)
         repoViewModel.getRepositories()
 
-        verify(observer).onChanged(repoLiveData.value)
+        verify(observer, times(1)).onChanged(repoLiveData.value)
     }
 }

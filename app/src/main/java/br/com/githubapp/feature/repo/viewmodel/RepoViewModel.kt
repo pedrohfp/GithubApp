@@ -14,5 +14,4 @@ class RepoViewModel(private val repoRepo: RepoRepository): ViewModel() {
     fun getRepositories(): LiveData<Resource<Repo>>{
         return repoRepo.getRepositories()
     }
-
 }

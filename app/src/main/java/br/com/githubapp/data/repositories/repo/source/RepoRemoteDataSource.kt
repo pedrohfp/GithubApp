@@ -15,7 +15,7 @@ import retrofit2.Response
  * Created by pedrohenrique on 10/02/2018.
  */
 class RepoRemoteDataSource(private val repoApi: RepoApi): RepoDataSource {
-    override fun getRepositories(): LiveData<Resource<Repo>> {
+    override fun getRepositories(): MutableLiveData<Resource<Repo>> {
         val mutableLiveData = MutableLiveData<Resource<Repo>>()
 
         repoApi.loadRepositories(0).enqueue(object : Callback<Repo> {

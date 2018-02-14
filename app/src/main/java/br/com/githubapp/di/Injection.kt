@@ -54,7 +54,7 @@ class Injection(private val context: Context, private val baseUrl: String){
 
     private val repoModule = Kodein.Module{
         bind<RepoApi>() with provider {
-            val retrofit:Retrofit = instance()
+            val retrofit: Retrofit = instance()
             retrofit.create(RepoApi::class.java) as RepoApi
         }
 
