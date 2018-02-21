@@ -8,5 +8,5 @@ import br.com.githubapp.data.model.Resource
  * Created by pedrohenrique on 10/02/2018.
  */
 interface RepoDataSource{
-    fun getRepositories(): LiveData<Resource<Repo>>
+    fun getRepositories(page: Int): LiveData<Resource<Repo>>
 }

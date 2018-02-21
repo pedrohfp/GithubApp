@@ -9,7 +9,7 @@ import br.com.githubapp.data.repositories.repo.contract.RepoDataSource
  * Created by pedrohenrique on 10/02/2018.
  */
 class RepoLocalDataSource: RepoDataSource{
-    override fun getRepositories(): LiveData<Resource<Repo>> {
+    override fun getRepositories(page: Int): LiveData<Resource<Repo>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

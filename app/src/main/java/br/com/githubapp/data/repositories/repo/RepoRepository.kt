@@ -1,6 +1,6 @@
 package br.com.githubapp.data.repositories.repo
 
-import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import br.com.githubapp.data.model.Repo
 import br.com.githubapp.data.model.Resource
 import br.com.githubapp.data.repositories.repo.contract.RepoDataSource
@@ -13,7 +13,7 @@ import br.com.githubapp.data.repositories.repo.source.RepoRemoteDataSource
 class RepoRepository(private val repoRemoteDataSource: RepoRemoteDataSource,
                      private val repoLocalDataSource: RepoLocalDataSource
 ): RepoDataSource {
-    override fun getRepositories(): LiveData<Resource<Repo>> {
-        return repoRemoteDataSource.getRepositories()
+    override fun getRepositories(page: Int): MutableLiveData<Resource<Repo>> {
+        return repoRemoteDataSource.getRepositories(page)
     }
 }
