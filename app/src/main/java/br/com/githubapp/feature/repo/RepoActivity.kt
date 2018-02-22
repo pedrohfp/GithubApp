@@ -15,7 +15,6 @@ import br.com.githubapp.data.model.Repo
 import br.com.githubapp.data.model.RepoItem
 import br.com.githubapp.data.model.Resource
 import br.com.githubapp.data.model.Status
-import br.com.githubapp.feature.repo.viewmodel.RepoListAdapter
 import br.com.githubapp.feature.repo.viewmodel.RepoViewModel
 import br.com.githubapp.feature.repo.viewmodel.RepoViewModelFactory
 import br.com.githubapp.util.EndlessRecyclerViewScrollListener
@@ -24,7 +23,7 @@ import com.github.salomonbrys.kodein.android.appKodein
 import com.github.salomonbrys.kodein.instance
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class RepoActivity : AppCompatActivity() {
 
     private val kodein = LazyKodein(appKodein)
     private lateinit var repoViewModel: RepoViewModel
@@ -71,7 +70,6 @@ class HomeActivity : AppCompatActivity() {
 
         val scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                Toast.makeText(applicationContext, "testing", Toast.LENGTH_LONG).show()
                 repoViewModel.loadRepositories()
             }
         }

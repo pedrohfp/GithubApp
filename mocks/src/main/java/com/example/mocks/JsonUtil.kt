@@ -1,4 +1,4 @@
-package com.example.mocks.utils
+package com.example.mocks
 
 import java.io.File
 

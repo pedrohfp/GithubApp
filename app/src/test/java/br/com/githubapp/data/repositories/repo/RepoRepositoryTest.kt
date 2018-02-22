@@ -2,10 +2,11 @@ package br.com.githubapp.data.repositories.repo
 
 import br.com.githubapp.BuildConfig
 import br.com.githubapp.data.api.RepoApi
-import br.com.githubapp.data.model.Status
+import br.com.githubapp.data.model.Repo
 import br.com.githubapp.data.repositories.repo.source.RepoLocalDataSource
 import br.com.githubapp.data.repositories.repo.source.RepoRemoteDataSource
-import br.com.githubapp.utils.getJson
+import com.example.mocks.JsonPaths
+import com.example.mocks.getJson
 import com.google.gson.GsonBuilder
 import com.nhaarman.mockito_kotlin.mock
 import okhttp3.mockwebserver.MockResponse
@@ -13,14 +14,14 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
 
 import org.junit.Assert.*
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.ExpectedException
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-
 
 /**
  * Created by pedrohenrique on 14/02/2018.
@@ -29,10 +30,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Config(constants = BuildConfig::class, sdk = intArrayOf(25))
 class RepoRepositoryTest {
 
+    @Rule
+    @JvmField
+    val exceptionExpected: ExpectedException = ExpectedException.none()
+
     private lateinit var repoRepository: RepoRepository
     private lateinit var repoRemoteDataSource: RepoRemoteDataSource
     private lateinit var repoLocalDataSource: RepoLocalDataSource
     private lateinit var server: MockWebServer
+    private lateinit var repo: Repo
+    private lateinit var exception: Throwable
 
     @Before
     fun setUp() {
@@ -54,13 +61,27 @@ class RepoRepositoryTest {
     }
 
     @Test
-    fun testLoadRepoSuccessful(){
-//        server.enqueue(MockResponse()
-//                .setResponseCode(200)
-//                .setBody(getJson(this, "json/GetRepositories.json")))
-//
-//        val repoLiveData = repoRepository.getRepositories(0)
-//
-//        assertEquals(Status.SUCCESS, repoLiveData.value!!.status)
+    fun whenGetRepositoriesReturnedRepo_verifyRepoIsNotNull(){
+
+        server.enqueue(MockResponse()
+                .setResponseCode(200)
+                .setBody(getJson(this, JsonPaths.GET_REPOSITORIES)))
+
+        repoRepository.getRepositories(0).subscribe{ repo ->
+            this.repo = repo
+        }
+
+        assertNotNull(repo)
+    }
+
+    @Test
+    fun whenGetRepositoriesReturnedException_verifyExceptionIsNotNull(){
+        server.enqueue(MockResponse().setResponseCode(400))
+
+        repoRepository.getRepositories(0).subscribe{ _, exception: Throwable ->
+            this.exception = exception
+        }
+
+        assertNotNull(exception)
     }
 }

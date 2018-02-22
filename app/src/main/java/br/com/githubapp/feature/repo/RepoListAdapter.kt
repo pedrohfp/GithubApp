@@ -1,4 +1,4 @@
-package br.com.githubapp.feature.repo.viewmodel
+package br.com.githubapp.feature.repo
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -22,7 +22,7 @@ class RepoListAdapter(private val repoList: List<RepoItem>, private val context:
 
     override fun getItemCount(): Int = repoList.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent?.context).inflate(R.layout.repo_item, parent, false)
         return ViewHolder(v)
     }
