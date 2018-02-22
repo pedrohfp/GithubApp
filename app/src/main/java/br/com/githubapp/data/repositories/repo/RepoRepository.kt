@@ -6,6 +6,7 @@ import br.com.githubapp.data.model.Resource
 import br.com.githubapp.data.repositories.repo.contract.RepoDataSource
 import br.com.githubapp.data.repositories.repo.source.RepoLocalDataSource
 import br.com.githubapp.data.repositories.repo.source.RepoRemoteDataSource
+import io.reactivex.Single
 
 /**
  * Created by pedrohenrique on 10/02/2018.
@@ -13,7 +14,7 @@ import br.com.githubapp.data.repositories.repo.source.RepoRemoteDataSource
 class RepoRepository(private val repoRemoteDataSource: RepoRemoteDataSource,
                      private val repoLocalDataSource: RepoLocalDataSource
 ): RepoDataSource {
-    override fun getRepositories(page: Int): MutableLiveData<Resource<Repo>> {
+    override fun getRepositories(page: Int): Single<Repo> {
         return repoRemoteDataSource.getRepositories(page)
     }
 }
